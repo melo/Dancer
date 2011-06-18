@@ -202,7 +202,19 @@ configuration. For example, for the default (C<Simple>) engine:
 
 =item B<view($view)>
 
-The default behavior of this method is to return the path of the given view.
+The default behavior of this method is to return the full path of the
+given view.
+
+The full path is created using 'views' setting as the
+template docuument root. If your template system would rather receive
+relative template paths to make use of, for example, multiple template
+roots, then you should override C<view()> like this:
+
+    sub view {
+        my ($self, $view) = @_;
+        return $self->_template_name($view);
+    }
+
 
 =item B<layout($layout, $tokens, $content)>
 
